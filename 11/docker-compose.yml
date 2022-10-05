@@ -1,0 +1,31 @@
+version: '3'
+services:
+  bacula-dir:
+    image: bacula-dir:11
+    container_name: bacula-dir
+    hostname: bacula-dir
+    build:
+      context: bacula-dir
+    network_mode: host
+    volumes:
+      - /etc/bacula:/etc/bacula:ro
+      - /var/spool/bacula:/var/spool/bacula:rw
+    restart: unless-stopped
+    logging: &logging
+      driver: "json-file"
+      options:
+        max-size: "10M"
+        max-file: "2"
+  bacula-sd:
+    image: bacula-sd:11
+    container_name: bacula-sd
+    hostname: bacula-sd
+    build:
+      context: bacula-sd
+    network_mode: host
+    volumes:
+      - /etc/bacula:/etc/bacula:ro
+      - /var/spool/bacula:/var/spool/bacula:rw
+    restart: unless-stopped
+    logging:
+      <<: *logging
