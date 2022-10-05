@@ -25,5 +25,6 @@ docker run --network host -ti bacula-dir:11 bash
 export PGHOST=127.0.0.1
 export PGUSER=bacula
 export PGNAME=bacula
+export PGPASSWORD=bacula
 /usr/libexec/bacula/update_postgresql_tables
 ```
